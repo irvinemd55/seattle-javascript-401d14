@@ -3,9 +3,9 @@
 > Advanced Software Development  
 
 [![](https://img.shields.io/badge/YouTube-401d14-red.svg)](https://www.youtube.com/playlist?list=PLVngfM2hsbi_Ih_IqTSB3dOEzCRUF3tMh)
-[![](https://img.shields.io/badge/canvas-401d14-blue.svg)]()
+[![](https://img.shields.io/badge/canvas-401d14-blue.svg)](https://canvas.instructure.com/courses/1107581)
 [![](https://img.shields.io/badge/Labs-401d14-yellow.svg)](https://github.com/codefellows-seattle-javascript-401d14)
-[![](https://img.shields.io/badge/slack-401d14-orange.svg)]()
+[![](https://img.shields.io/badge/slack-401d14-orange.svg)](https://codefellows.slack.com/messages/seattle-js-401d14/)
 
 # Welcome
 Welcome to Code 401 Javascript! This is a class that builds on your fundamental Javascript programming knowledge to make you a proficient full-stack Javascript developer, and to prepare you for getting a job in today's Javascript job market!
