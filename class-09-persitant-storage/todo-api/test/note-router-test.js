@@ -6,7 +6,7 @@ const Note = require('../model/note.js');
 const storage = require('../lib/storage.js');
 
 const apiURL = `http://localhost:${process.env.PORT || 3000}`;
-require('../servers.js');
+  require('../servers.js');
 
 describe('testing /api/notes', function(){
   describe('testing POST', function(){
@@ -30,12 +30,23 @@ describe('testing /api/notes', function(){
     });
 
     describe('with invalid input', function(){
+      it('should respond with a 400 status code', (done) => {
+        superagent.post(`${apiURL}/api/notes`)
+        .send({ titile: 'example title'})
+        .then(() => {
+          done(new Error('we expected to get a 400'));
+        })
+        .catch(err => {
+          expect(err.status).to.equal(400);
+          done();
+        });
+      });
     });
   });
 
   describe('testing GET', function(){
     describe('with valid input', function(){
-      // mock a note so that we have an id to make a get to 
+      // mock a note so that we have an id to make a get to
       before((done) => {
         this.tempNote = new Note({title: 'hello', content: 'wrold'});
         storage.setItem('notes', this.tempNote)
@@ -60,6 +71,25 @@ describe('testing /api/notes', function(){
     });
 
     describe('with invalid input', function(){
+      it('get /api/notes with no id should return a 400 status', (done) => {
+        superagent.get(`${apiURL}/api/notes`)
+        .then(done)
+        .catch(err => {
+          expect(err.status).to.equal(400);
+          done();
+        })
+        .catch(done);
+      });
+
+      it('get /api/notes with bad id should return a 404 status', (done) => {
+        superagent.get(`${apiURL}/api/notes?id=54321`)
+        .then(done)
+        .catch(err => {
+          expect(err.status).to.equal(404);
+          done();
+        })
+        .catch(done);
+      });
     });
   });
 });

@@ -1,7 +1,24 @@
 'use strict';
 
-const data = {};
 
+
+// data =
+// { 
+// notes: {123: {}, 534: {}},
+// list: {120: {}, 530: {}}
+// }
+
+//./data/
+   //| ./notes/
+   //|   123 -- JSON File with hte 123 note
+   //|   534 -- JSON File with hte 534 note
+   //| ./list/
+   //|   120 -- JSON File with hte 120 note
+   //|   530 -- JSON File with hte 530 note
+const Promise = require('bluebird');
+const fs = Promise.promisifyAll(require('fs'));
+
+const data = {};
 const storage = module.exports = {};
 
 storage.setItem = function(name, item){
