@@ -4,8 +4,8 @@ const http = require('http');
 const PORT = process.env.PORT || 3000;
 
 const Router = require('./lib/router.js');
-let router = new Router();
 
+let router = new Router();
 const noteRouter = require('./router/note-router.js');
 
 noteRouter(router);

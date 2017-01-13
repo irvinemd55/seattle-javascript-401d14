@@ -17,8 +17,6 @@
 //|   530.json -- JSON File with hte 530 note
 const Promise = require('bluebird');
 const fs = Promise.promisifyAll(require('fs'));
-
-const data = {};
 const storage = module.exports = {};
 
 const dataDir = `${__dirname}/../data`;
@@ -30,17 +28,10 @@ const dataDir = `${__dirname}/../data`;
 storage.setItem = function(name, item){
   // TODO: check if directory exits
   return  fs.statAsync(`${dataDir}/${name}`)
-  .catch(err => {
-    err.status = 400;
-    return Promise.reject(err);
-  })
   .then(() => {
     let json = JSON.stringify(item);
-    // if this fails its 500 error
-    // TODO: save the item in the directory
     return fs.writeFileAsync(`${dataDir}/${name}/${item.id}.json`, json);
   })
-  // TODO: respond to the user
   .then(() => item);
 
 }
