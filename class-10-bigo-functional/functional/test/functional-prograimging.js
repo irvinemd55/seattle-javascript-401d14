@@ -45,7 +45,7 @@ describe('functional programming demo', function(){
     expect(after).to.deep.equal([3,5,7]);
 
     function map(input, callback){
-      var result = []; 
+      var result = [];
       for(var i = 0;i<input.length; i++){
         result.push(callback(input[i], i, input));
       }
@@ -53,6 +53,66 @@ describe('functional programming demo', function(){
     }
   });
 
+
+  it('loop recursion', function(){
+    var count = 0;
+
+    var data = [3,4,5,6];
+    loop(0, data.length, function(i){
+      count++;
+    })
+
+    expect(count).to.equal(data.length);
+
+    function loop(start, finish, callback){
+      // break condition
+      if(start >= finish) return;
+      callback(start);
+      loop(start + 1, finish, callback);
+    }
+
+  });
+
+
+  it('should map to the absolute value of each num', () => {
+
+    let absMap = input => input.map(num => Math.abs(num));
+    let result = absMap([-100, -120, -2]);
+    expect(result).to.deep.equal([100, 120, 2]);
+  })
+
+  it('should create a object with the method say hello', () => {
+    // CONSTRUCTOR
+    function User(name){
+      this.name = name;
+    }
+  
+    User.prototype.getName = function(){
+      return this.name;
+    }
+
+    let blorg = new User('blorg');
+    expect(blorg.getName()).to.equal('blorg');
+
+    // FACTORY FUNCTION
+    function createUser(name){
+      let proto = {};
+
+      proto.getName = function(){
+        return this.name;
+      }
+
+      let result = Object.create(proto);
+
+      result.name = name;
+      return result;
+    }
+
+    let slug = createUser('slug');
+    expect(slug.name).to.equal('slug');
+    expect(slug.getName()).to.equal('slug');
+
+  })
 });
 
 
