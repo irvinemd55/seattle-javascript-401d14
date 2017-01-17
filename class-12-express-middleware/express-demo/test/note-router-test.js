@@ -1,13 +1,22 @@
-'use strict'
+'use strict';
 
-const superagent = require('superagent');
+require('dotenv').load();
+const superagent = require('superagent'); // AJAX library
 const expect = require('chai').expect;
+
 const Note = require('../model/note.js');
+
 const baseUrl = `http://localhost:${process.env.PORT || 3000}`
 require('../server.js');
 
 describe('testing note roter', function(){
   describe('testing POST /api/notes', function(){
+    after((done) => {
+      Note.deleteById(this.tempnote.id)
+      .then(() => done())
+      .catch(done);
+    });
+
     it('shoud create a note', (done) => {
       superagent.post(`${baseUrl}/api/notes`)
       .send({
@@ -30,20 +39,12 @@ describe('testing note roter', function(){
       .send({
         title: 'beach adventure',
       })
-      .then(done)
+      .then(done) // call done(res) to tell mocah that success is an error
       .catch(err=> {
         expect(err.status).to.equal(400);
-        done();
+        done(); // call done() with nothing to tell mocha that the test was a success
       })
-      .catch(done);
-    })
-
-    after((done) => {
-      Note.deleteById(this.tempnote.id)
-      .then(() => done())
-      .catch(done);
+      .catch(done); // call done(err) to print any error messages from expect statments
     })
   });
-
-
 });
