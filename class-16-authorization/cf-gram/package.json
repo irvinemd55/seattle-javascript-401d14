@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/mocha/bin/mocha",
+    "debug": "DEBUG=cf* npm run test"
   },
   "keywords": [],
   "author": "",
@@ -21,5 +22,10 @@
     "jsonwebtoken": "^7.2.1",
     "mongoose": "^4.7.7",
     "morgan": "^1.7.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0",
+    "superagent": "^3.3.2"
   }
 }

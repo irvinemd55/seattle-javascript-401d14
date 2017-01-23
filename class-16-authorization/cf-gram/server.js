@@ -20,6 +20,7 @@ mongoose.connect(process.env.MONGODB_URI);
 app.use(cors());
 app.use(morgan('dev'));
 // app routes
+app.use(require('./route/auth-router.js'));
 // app error middlware
 app.use(function(err, req, res, next){
   console.log(err.message);
@@ -32,11 +33,20 @@ app.use(function(err, req, res, next){
     res.status(400).send();
     return;
   }
+  if(err.message === 'E11000 duplicate key'){
+    // 409 means confit when a user is trying to do something that needs to
+    // be unique and hass allready been taken
+    res.status(409).send();
+    return;
+  }
 
   res.status(500).send();
 });
 
 // start server
-app.listen(process.env.PORT , ()=> {
+const server = app.listen(process.env.PORT , ()=> {
   console.log('server up ::', process.env.PORT);
 });
+
+server.isRunning = true;
+module.exports = server;
